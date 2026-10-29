@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEC//LAB · 小薛的网络安全学习中枢</title>
+<meta name="description" content="网络安全学习导航站：学习路线、45+ 安全工具官方下载、配套安装教程、命令速查与靶场练习。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="grid-overlay" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+
+<!-- ============ 导航 ============ -->
+<header class="nav" id="nav">
+  <a class="logo" href="#home">
+    <span class="logo-mark">S<span>//</span>L</span>
+    <span class="logo-text">SEC<em>LAB</em></span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#home" class="active">首页</a>
+    <a href="#roadmap">学习路线</a>
+    <a href="#tools">工具库</a>
+    <a href="#guide">安装教程</a>
+    <a href="#cheat">命令速查</a>
+    <a href="#range">靶场</a>
+    <a href="#notice">免责</a>
+  </nav>
+  <div class="nav-right">
+    <div class="progress-mini" title="工具安装完成度">
+      <svg viewBox="0 0 36 36" class="ring">
+        <circle class="ring-bg" cx="18" cy="18" r="15.5"></circle>
+        <circle class="ring-fg" id="ringFg" cx="18" cy="18" r="15.5"></circle>
+      </svg>
+      <span id="ringTxt">0%</span>
+    </div>
+    <button class="btn btn-ghost" id="btnReset" title="清空本地安装进度">重置</button>
+    <button class="burger" id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div class="badge-row">
+      <span class="badge"><i class="dot"></i> ONLINE · 本地学习环境</span>
+      <span class="badge badge-dim">仅限授权测试</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hl">网络安全</span>
+      <span class="hl grad">学习中枢<span class="cursor-blink">_</span></span>
+    </h1>
+
+    <p class="hero-sub">
+      从零基础到实战渗透：<b>学习路线</b> · <b>工具官方下载</b> · <b>逐键安装教程</b> · <b>命令速查</b> · <b>靶场练习</b><br>
+      所有工具均指向官方 / GitHub Release 原始渠道，不提供任何破解版、绿色版或来历不明的压缩包。
+    </p>
+
+    <div class="hero-actions">
+      <a href="#tools" class="btn btn-primary">进入工具库 <span class="arrow">→</span></a>
+      <a href="#roadmap" class="btn btn-outline">查看学习路线</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><b class="count" data-target="45">0</b><span>工具收录</span></div>
+      <div class="stat"><b class="count" data-target="8">0</b><span>能力分类</span></div>
+      <div class="stat"><b class="count" data-target="60">0</b><span>安装步骤</span></div>
+      <div class="stat"><b class="count" data-target="9">0</b><span>在线靶场</span></div>
+    </div>
+
+    <div class="terminal-card">
+      <div class="term-bar"><i></i><i></i><i></i><span>bash — 学习环境自检</span></div>
+      <pre class="term-body" id="termBody"></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 学习路线 ============ -->
+<section id="roadmap" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">01</span>
+    <div>
+      <h2>学习路线 <em>ROADMAP</em></h2>
+      <p>按顺序走，别跳阶段。左侧是阶段，右侧是该阶段必须装好的工具。</p>
+    </div>
+  </div>
+
+  <div class="roadmap">
+    <article class="rm-card reveal">
+      <div class="rm-side"><span>STAGE 01</span><b>1-2 个月</b></div>
+      <div class="rm-body">
+        <h3>基础打底 · 计算机与网络</h3>
+        <p class="rm-goal">目标：看懂一个请求从浏览器到服务器的全过程，能自己搭一台虚拟机靶场。</p>
+        <ul class="rm-list">
+          <li>操作系统：Windows 进程/服务/注册表、Linux 文件权限与常用命令</li>
+          <li>网络：TCP/IP、HTTP 协议、DNS、代理与抓包原理</li>
+          <li>编程：Python 基础语法 + 简单脚本；HTML/JS/SQL 能读能改</li>
+        </ul>
+        <div class="rm-tools">
+          <span>VMware</span><span>Kali</span><span>Python</span><span>Wireshark</span><span>DVWA</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="rm-card reveal">
+      <div class="rm-side"><span>STAGE 02</span><b>2-3 个月</b></div>
+      <div class="rm-body">
+        <h3>Web 渗透 · 主战场</h3>
+        <p class="rm-goal">目标：独立完成一次授权渗透，能出报告；在公益 SRC 上交出第一个可复现的低危。</p>
+        <ul class="rm-list">
+          <li>OWASP Top 10 原理与手工验证：注入、XSS、SSRF、越权、文件上传</li>
+          <li>Burp Suite 全流程：抓包、改包、重放、Intruder、插件</li>
+          <li>信息收集：子域枚举、指纹识别、目录扫描、旁站与端口</li>
+        </ul>
+        <div class="rm-tools">
+          <span>Burp</span><span>sqlmap</span><span>nuclei</span><span>fscan</span><span>Xray</span><span>dirsearch</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="rm-card reveal">
+      <div class="rm-side"><span>STAGE 03</span><b>2-3 个月</b></div>
+      <div class="rm-body">
+        <h3>内网渗透 · 权限提升</h3>
+        <p class="rm-goal">目标：拿下 Web 权限后能横向到域控；理解域环境攻击链（这阶段只在自己的靶场练）。</p>
+        <ul class="rm-list">
+          <li>Windows 提权、Linux 提权、权限维持思路</li>
+          <li>域基础：Kerberos、LDAP、ACL、票据、委派</li>
+          <li>隧道与代理：Chisel / frp / 正向反向连接</li>
+        </ul>
+        <div class="rm-tools">
+          <span>Metasploit</span><span>Impacket</span><span>BloodHound</span><span>NetExec</span><span>Mimikatz</span><span>Chisel</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="rm-card reveal">
+      <div class="rm-side"><span>STAGE 04</span><b>长期</b></div>
+      <div class="rm-body">
+        <h3>进阶方向 · 选一条深挖</h3>
+        <p class="rm-goal">目标：形成个人技术标签 —— 能写工具、能分析样本、能讲清一次完整攻击链。</p>
+        <ul class="rm-list">
+          <li>逆向与恶意代码分析：IDA / Ghidra / x64dbg / Frida</li>
+          <li>取证与应急响应：Volatility / Autopsy / 时间线分析</li>
+          <li>免杀、代码审计、云安全、工控安全（择一深入）</li>
+        </ul>
+        <div class="rm-tools">
+          <span>Ghidra</span><span>x64dbg</span><span>jadx</span><span>Volatility3</span><span>Autopsy</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 工具库 ============ -->
+<section id="tools" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">02</span>
+    <div>
+      <h2>安全工具库 <em>ARSENAL</em></h2>
+      <p>点任意卡片查看<b>配套安装教程</b>；勾选 <b>已安装</b> 会保存在本地浏览器，右上角环形进度同步更新。</p>
+    </div>
+  </div>
+
+  <div class="toolbar reveal">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" class="ico"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input type="text" id="search" placeholder="搜索工具名、用途或关键字…（例如 burp / 提权 / 抓包）" autocomplete="off">
+      <kbd>/</kbd>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="tool-meta reveal">
+    <span id="resultCount">共 0 个工具</span>
+    <div class="bar-progress"><i id="barFg"></i></div>
+    <span id="barTxt">已安装 0 / 0</span>
+  </div>
+
+  <div class="grid" id="toolGrid"></div>
+  <div class="empty" id="empty" hidden>
+    <b>没有匹配的工具</b>
+    <p>换个关键字试试，或点「全部」查看所有分类。</p>
+  </div>
+</section>
+
+<!-- ============ 安装教程主线 ============ -->
+<section id="guide" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">03</span>
+    <div>
+      <h2>安装主线 <em>SETUP GUIDE</em></h2>
+      <p>新手最容易卡住的四件事：装虚拟机、配 Burp 证书、配 Python 环境、起本地靶场。这里给完整按键级步骤（Windows 11）。</p>
+    </div>
+  </div>
+
+  <div class="guide-tabs reveal" id="guideTabs">
+    <button class="gt active" data-g="vm">① 虚拟机 + Kali</button>
+    <button class="gt" data-g="burp">② Burp Suite 抓 HTTPS</button>
+    <button class="gt" data-g="py">③ Python 工具环境</button>
+    <button class="gt" data-g="dvwa">④ 本地 DVWA 靶场</button>
+  </div>
+
+  <div class="guide-panel" id="guidePanel"><!-- JS 注入 --></div>
+</section>
+
+<!-- ============ 命令速查 ============ -->
+<section id="cheat" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">04</span>
+    <div>
+      <h2>命令速查 <em>CHEATSHEET</em></h2>
+      <p>点代码块右侧 <b>复制</b> 即可。所有示例目标都用保留地址，替换成你自己的靶场 IP。</p>
+    </div>
+  </div>
+  <div class="cheat-grid" id="cheatGrid"></div>
+</section>
+
+<!-- ============ 靶场 ============ -->
+<section id="range" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">05</span>
+    <div>
+      <h2>靶场与练习 <em>RANGE</em></h2>
+      <p>先在靶场练熟，再去授权目标。永远不要在未授权的系统上试命令。</p>
+    </div>
+  </div>
+  <div class="range-grid" id="rangeGrid"></div>
+</section>
+
+<!-- ============ 免责 ============ -->
+<section id="notice" class="section">
+  <div class="sec-head reveal">
+    <span class="sec-num">06</span>
+    <div>
+      <h2>合规与免责 <em>LEGAL</em></h2>
+      <p>技术本身中立，使用方式决定性质。</p>
+    </div>
+  </div>
+  <div class="notice-grid">
+    <div class="notice-card ok reveal">
+      <h3>✔ 可以做</h3>
+      <ul>
+        <li>自己的设备、自己的虚拟机、本地靶场</li>
+        <li>SRC 平台明确列入范围且允许测试的资产（先读规则）</li>
+        <li>书面授权的渗透测试项目，按授权书限定强度与时间</li>
+        <li>学习协议原理、复现公开 CVE（在本地漏洞环境）</li>
+      </ul>
+    </div>
+    <div class="notice-card bad reveal">
+      <h3>✘ 不能做</h3>
+      <ul>
+        <li>对未授权站点扫描、爆破、拖库、上传 webshell</li>
+        <li>把别人的漏洞报告 / 漏洞盒子公开 PoC 当自己的成果提交</li>
+        <li>使用破解版、捆绑后门的"集成工具包"</li>
+        <li>在 SRC 项目上跑全端口扫描器、批量爆破（多数平台直接判违规）</li>
+      </ul>
+    </div>
+  </div>
+  <p class="law-line reveal">
+    《中华人民共和国刑法》第二百八十五条、二百八十六条：非法侵入、获取、控制计算机信息系统，及提供侵入工具，均可能构成犯罪。
+    未授权测试的后果不是"被发现就删站"，而是刑事风险 + 平台永久封号 + 报告作废。
+  </p>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div>
+      <b class="foot-logo">SEC<span>//</span>LAB</b>
+      <p>本地静态学习站 · 所有下载链接指向官方渠道 · 建议每月核对一次版本</p>
+    </div>
+    <div class="foot-links">
+      <a href="#roadmap">学习路线</a>
+      <a href="#tools">工具库</a>
+      <a href="#cheat">命令速查</a>
+      <a href="#notice">免责声明</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ 模态框 ============ -->
+<div class="modal-mask" id="modalMask" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
+    <div class="modal-head">
+      <div class="m-icon" id="mIcon">B</div>
+      <div>
+        <span class="m-cat" id="mCat"></span>
+        <h3 id="mName"></h3>
+        <p id="mDesc"></p>
+      </div>
+    </div>
+    <div class="m-links" id="mLinks"></div>
+    <div class="m-body" id="mBody"></div>
+    <div class="m-foot">
+      <button class="btn btn-primary" id="mDone">标记为已安装</button>
+      <span class="m-tip" id="mTip"></span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/data-core.js"></script>
+<script src="assets/js/data-tools-1.js"></script>
+<script src="assets/js/data-tools-2.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
