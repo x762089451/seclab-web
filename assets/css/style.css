@@ -149,6 +149,10 @@ b,strong{color:#eaf4ff}
   font-weight:800;
 }
 .hero-title .hl{display:block}
+.hero-title .hl-pre{
+  display:block;font-size:.32em;font-weight:600;letter-spacing:8px;color:var(--dim);
+  margin-bottom:10px;text-indent:2px;
+}
 .grad{
   background:linear-gradient(100deg,var(--cyan) 0%,#8ef0ff 30%,var(--violet) 70%,#ff8ad4 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
